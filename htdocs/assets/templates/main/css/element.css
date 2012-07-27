@@ -1,0 +1,14 @@
+a#go2top
+	{
+	background-color: #fb5;
+	border-bottom: 2px solid #b30;
+	border-radius: 0.5em 0.5em 0.5em 0.5em;
+	border-top: 1px solid #b20;
+	color: #520;
+	display: block;
+	font: small-caps bold 1em/1.5em Arial,sans-serif;
+	opacity: 0.3;
+	padding: 0.2em 0;
+	text-align: center;
+	text-decoration: none;
+	}
