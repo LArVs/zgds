@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model package="zgds" baseClass="xPDOObject" platform="mysql" defaultEngine="MyISAM" phpdoc-package="zgds" phpdoc-subpackage="" version="1.1">
+
+	<!-- registration card  -->
+	<object class="zgdsRegistrationCard" table="zgds_rcard" extends="xPDOSimpleObject">
+
+		<!-- ****** (1) Регистрация -->
+		<!-- epidemiologic number / эпидемиологический номер -->
+ 		<field key="eid" dbtype="integer" precision="10"  phptype="string" null="false" default="" />
+			<index alias="eid" name="eid" primary="false" unique="false" type="BTREE">
+				<column key="eid" length="" collation="A" null="false" />
+			</index>
+
+		<!-- first, last, patronymic name / ФИО больного -->
+		<field key="fname_id"    dbtype="integer" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
+			<index alias="fname_id" name="fname_id" primary="false" unique="false" type="BTREE">
+				<column key="fname_id" length="" collation="A" null="false" />
+			</index>
+			<aggregate alias="FName"  class="zgdsFName"  local="fname_id"  foreign="id" cardinality="one" owner="foreign" />
+
+		<field key="lname_id"    dbtype="integer" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
+			<aggregate alias="LName"  class="zgdsLName"  local="lname_id"  foreign="id" cardinality="one" owner="foreign" />
+
+		<field key="pname_id"    dbtype="integer" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
+			<aggregate alias="PName"  class="zgdsPName"  local="pname_id"  foreign="id" cardinality="one" owner="foreign" />
+
+		<!-- date of birth / дата рождения | возраст -->
+		<field key="date_of_birth" dbtype="date" phptype="date" null="false" default="0000-00-00" />
+		<field key="age"           dbtype="tinyint" precision="3" attributes="unsigned" phptype="integer" null="false" default="0" />
+
+	</object>
+
+	<!-- First name -->
+	<object class="zgdsFName" table="zgds_fname" extends="xPDOSimpleObject">
+		<field key="fname" dbtype="varchar" precision="50" phptype="string" null="false" default="" />
+			<index alias="fname" name="fname" primary="false" unique="true" fulltext="true" type="BTREE">
+				<column key="fname" length="" collation="A" null="false" />
+			</index>
+
+		<composite alias="RegistrationCard" class="zgdsRegistrationCard" local="id" foreign="fname_id" cardinality="many" owner="local" />
+	</object>
+	<!-- Last name -->
+	<object class="zgdsLName" table="zgds_lname" extends="xPDOSimpleObject">
+		<field key="lname" dbtype="varchar" precision="50" phptype="string" null="false" default="" index="unique" />
+			<index alias="lname" name="lname" primary="false" unique="true" fulltext="true" type="BTREE">
+				<column key="lname" length="" collation="A" null="false" />
+			</index>
+
+		<composite alias="RegistrationCard" class="zgdsRegistrationCard" local="id" foreign="lname_id" cardinality="many" owner="local" />
+	</object>
+	<!-- Patronymic name -->
+	<object class="zgdsPName" table="zgds_pname" extends="xPDOSimpleObject">
+		<field key="pname" dbtype="varchar" precision="50" phptype="string" null="false" default="" index="unique" />
+			<index alias="pname" name="pname" primary="false" unique="true" fulltext="true" type="BTREE">
+				<column key="pname" length="" collation="A" null="false" />
+			</index>
+
+		<composite alias="RegistrationCard" class="zgdsRegistrationCard" local="id" foreign="pname_id" cardinality="many" owner="local" />
+	</object>
+
+</model>
