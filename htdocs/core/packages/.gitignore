@@ -2,5 +2,5 @@
 *
 # except .gitignore
 !.gitignore
-!.zip
+!*.zip
 
