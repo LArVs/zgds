@@ -1,0 +1,12 @@
+<?php return array (
+  'preserve_keys' => true,
+  'update_object' => true,
+  'vehicle_package' => 'transport',
+  'vehicle_class' => 'xPDOObjectVehicle',
+  'guid' => '5c5507214ad4cecc08ab87ff0d397dfa',
+  'package' => 'modx',
+  'class' => 'modEvent',
+  'signature' => '9d2bdfb1474ad2a185e46f660a00f4bf',
+  'native_key' => 'OnManagerPageBeforeRender',
+  'object' => '{"name":"OnManagerPageBeforeRender","service":2,"groupname":"System"}',
+);

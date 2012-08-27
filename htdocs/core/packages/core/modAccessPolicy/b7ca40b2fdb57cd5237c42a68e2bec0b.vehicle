@@ -1,0 +1,16 @@
+<?php return array (
+  'preserve_keys' => false,
+  'unique_key' => 
+  array (
+    0 => 'name',
+  ),
+  'update_object' => true,
+  'vehicle_package' => 'transport',
+  'vehicle_class' => 'xPDOObjectVehicle',
+  'guid' => 'b42c3fa4b18b80187b3bbb99bebbfd73',
+  'package' => 'modx',
+  'class' => 'modAccessPolicy',
+  'signature' => 'b7ca40b2fdb57cd5237c42a68e2bec0b',
+  'native_key' => 5,
+  'object' => '{"id":5,"name":"Object","description":"An Object policy with all permissions.","parent":0,"template":0,"class":"","data":"{\\"load\\":true,\\"list\\":true,\\"view\\":true,\\"save\\":true,\\"remove\\":true}","lexicon":"permissions"}',
+);

@@ -1,0 +1,21 @@
+Changelog for BreadCrumb
+
+BreadCrumb 1.1.0-pl
+-------------------
+Add properties &from and &to to generate breadcrumb between to specific resources
+
+BreadCrumb 1.0.0-pl
+-------------------
+Public launch
+
+BreadCrumb 1.0.0-beta3
+-------------------
+Add useWebLinkUrl property
+
+BreadCrumb 1.0.0-beta2
+-------------------
+Fix current resource checking when resourceId property specified
+
+BreadCrumb 1.0.0-beta1
+-------------------
+Initial Version
