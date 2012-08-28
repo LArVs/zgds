@@ -1,9 +1,18 @@
+<?php
+// vim: ft=php
+
+header('Content-type: application/json; charset=UTF-8');
+//echo '{"tets":"json"}';
+
+echo <<<"EOS"
 {
 'success': true,
 'results':
 	[
-	{ 'id': 1, number: '121', name: 'Иванов',   date: '2012-06-25 10:25' },
-	{ 'id': 2, number: '122', name: 'Петров',   date: '2012-06-25 11:30' },
-	{ 'id': 3, number: '123', name: 'Сидоров',  date: '2012-06-25 11:45' }
+	{ id: 1, number: '111', fname: 'Иванов',  lname: 'Иван', pname: 'Иванович',  dor: '2012-06-25' },
+	{ id: 2, number: '121', fname: 'Петров',  lname: 'Петр', pname: 'Петрович',  dor: '2012-06-26' },
+	{ id: 3, number: '131', fname: 'Сидоров', lname: 'Сидр', pname: 'Сидорович', dor: '2012-06-27' },
 	]
 }
+EOS;
+

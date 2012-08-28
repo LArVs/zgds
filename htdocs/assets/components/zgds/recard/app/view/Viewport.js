@@ -3,7 +3,8 @@ Ext.define( 'RCard.view.Viewport', {
 
 	requires:
 		[
-		'RCard.view.CardsList'
+		'RCard.view.CardsList',
+		'RCard.view.EditCard',
 		],
 
 	layout: 'fit',
@@ -20,13 +21,16 @@ Ext.define( 'RCard.view.Viewport', {
 			{
 			xtype: 'cardslist',
 			//xtype: 'panel',
+			collapsible:true,
 			flex: 1,
 			title: 'List card',
-			split: true,
 			},
 			{
-			xtype: 'panel',
-			height: 300,
+			//xtype: 'panel',
+			xtype: 'editcard',
+			collapsible:true,
+			flex: 2,
+			//height: 400,
 			title: 'Edit card'
 			}
 			]

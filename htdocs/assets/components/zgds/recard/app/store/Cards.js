@@ -9,7 +9,7 @@ Ext.define( 'RCard.store.Cards', {
 		reader:
 			{
 			type: 'json',
-			root: 'results'
+			root: 'results',
 			}
 		}
 	});
