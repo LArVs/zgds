@@ -7,7 +7,7 @@ Ext.define( 'RCard.model.Card', {
 		{ name: 'fname',  type: 'string' },
 		{ name: 'lname',  type: 'string' },
 		{ name: 'pname',  type: 'string' },
-		{ name: 'dor',    type: 'date', dateFormat: 'Y-m-d' },
+		{ name: 'dor',    type: 'date'   },
 		],
 	});
 

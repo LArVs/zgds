@@ -27,7 +27,7 @@ Ext.define( 'RCard.view.Viewport', {
 			},
 			{
 			//xtype: 'panel',
-			xtype: 'editcard',
+			xtype: 'cardedit',
 			collapsible:true,
 			flex: 2,
 			//height: 400,

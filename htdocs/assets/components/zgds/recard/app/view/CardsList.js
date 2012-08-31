@@ -1,9 +1,11 @@
 Ext.define( 'RCard.view.CardsList', {
 	extend: 'Ext.grid.Panel',
-	collapsible:true,
-	bodyPadding: 5,
 	alias: 'widget.cardslist',
 	store: 'Cards',
+	loadMask: true,
+
+	collapsible:true,
+	bodyPadding: 5,
 	layout: {
 		type: 'hbox',
 		align: 'stretch'

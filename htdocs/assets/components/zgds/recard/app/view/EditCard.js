@@ -2,8 +2,7 @@ Ext.define( 'RCard.view.EditCard', {
 	extend: 'Ext.form.Panel',
 	collapsible:true,
 	bodyPadding: 5,
-	alias: 'widget.editcard',
-	store: 'Card',
+	alias: 'widget.cardedit',
 	waitMsgTarget: true,
 
 	fieldDefaults:
@@ -63,15 +62,20 @@ Ext.define( 'RCard.view.EditCard', {
 		[
 		{
 		text: 'Сбросить',
-		//handler: function(){
+		scope: this,
+		handler: this.onReset,
+		//handler: function()
+			//{
+			//formPanel.getForm().reset();
 			//formPanel.getForm().load({
 				////url: 'xml-form-data.xml',
 				//waitMsg: 'Loading...'
 			//});
-		//}
+			//}
 		},
 		{
 		text: 'Загрузить',
+		scope: this,
 		//handler: function(){
 			//formPanel.getForm().load({
 				////url: 'xml-form-data.xml',
@@ -81,8 +85,10 @@ Ext.define( 'RCard.view.EditCard', {
 		},
 		{
 		text: 'Сохранить',
+		scope: this,
 		disabled: true,
 		formBind: true,
+		handler: this.onSave,
 		//handler: function(){
 			//this.up('form').getForm().submit({
 				////url: 'xml-form-errors.xml',
@@ -91,7 +97,17 @@ Ext.define( 'RCard.view.EditCard', {
 			//});
 		//}
 		}
-		]
+		],
+
+	onReset: function()
+		{
+		this.getForm().loadRecord( this.activeRecord );
+		},
+
+	onSave: function()
+		{
+		this.getForm().updateRecord( this.activeRecord );
+		},
 
 	//, dockedItems: [{
 		//xtype: 'toolbar',
