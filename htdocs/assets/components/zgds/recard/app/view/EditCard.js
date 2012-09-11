@@ -16,21 +16,27 @@ Ext.define( 'RCard.view.EditCard', {
 		[{
 		xtype: 'fieldset',
 		title: 'Карточка',
-		defaultType: 'textfield',
-		defaults: { width: 300 },
+		disabled: true,
+		defaults:
+			{
+			xtype: 'textfield',
+			width: 300,
+			},
 		items:
 			[
 				{
 				fieldLabel: 'ID',
 				name: 'id',
 				xtype: 'numberfield',
-				disabled: true,
+				hideTrigger: true,
+				//disabled: true,
 				},
 				{
 				fieldLabel: 'Номер',
 				name: 'number',
 				xtype: 'numberfield',
-				disabled: true,
+				hideTrigger: true,
+				//disabled: true,
 				},
 				{
 				allowBlank: false,
@@ -50,89 +56,40 @@ Ext.define( 'RCard.view.EditCard', {
 				},
 				{
 				xtype: 'datefield',
+				format: 'd-m-Y',
 				fieldLabel: 'Дата рождения',
 				name: 'dor',
 				//allowBlank: false,
-				maxValue: new Date()
-				}
-			]
+				//maxValue: new Date()
+				},
+			],
 		}],
 
-	buttons:
-		[
-		{
-		text: 'Сбросить',
-		scope: this,
-		handler: this.onReset,
-		//handler: function()
-			//{
-			//formPanel.getForm().reset();
-			//formPanel.getForm().load({
-				////url: 'xml-form-data.xml',
-				//waitMsg: 'Loading...'
-			//});
-			//}
-		},
-		{
-		text: 'Загрузить',
-		scope: this,
-		//handler: function(){
-			//formPanel.getForm().load({
-				////url: 'xml-form-data.xml',
-				//waitMsg: 'Loading...'
-			//});
-		//}
-		},
-		{
-		text: 'Сохранить',
-		scope: this,
-		disabled: true,
-		formBind: true,
-		handler: this.onSave,
-		//handler: function(){
-			//this.up('form').getForm().submit({
-				////url: 'xml-form-errors.xml',
-				//submitEmptyText: false,
-				//waitMsg: 'Saving Data...'
-			//});
-		//}
-		}
-		],
-
-	onReset: function()
-		{
-		this.getForm().loadRecord( this.activeRecord );
-		},
-
-	onSave: function()
-		{
-		this.getForm().updateRecord( this.activeRecord );
-		},
-
-	//, dockedItems: [{
-		//xtype: 'toolbar',
-		//dock: 'bottom',
-		//ui: 'footer',
-		//items: ['->',
-			//{
-				//iconCls: 'icon-save',
-				//itemId: 'save',
-				//text: 'Save',
-				//disabled: true,
-				//scope: this,
-				////handler: this.onSave
-			//}, {
-				//iconCls: 'icon-user-add',
-				//text: 'Create',
-				//scope: this,
-				////handler: this.onCreate
-			//}, {
-				//iconCls: 'icon-reset',
-				//text: 'Reset',
-				//scope: this,
-				////handler: this.onReset
-			//}]
-	//}]
+	dockedItems: [{
+		xtype: 'toolbar',
+		dock: 'top',
+		ui: 'footer',
+		items: [
+			{
+			text: 'Редактировать',
+			id: 'editCardEdit',
+			},
+			{
+			text: 'Сохранить',
+			id: 'editCardSave',
+			disabled: true,
+			},
+			{
+			text: 'Отмена',
+			id: 'editCardCancel',
+			disabled: true,
+			},
+			{ xtype: 'tbfill' },
+			{
+			text: 'Новая карточка',
+			},
+			]
+		}],
 
 	});
 

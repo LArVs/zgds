@@ -50,17 +50,18 @@ Ext.define( 'RCard.controller.CardsList',
 			+ '	   lname: ' + record.data.lname + '\n'
 			);
 		// load card in edit form
-		this.application.fireEvent( 'cardedit', model, record, index, object );
+		this.application.fireEvent( 'cardread', model, record, index, object );
 		},
 	onCardEdit: function( model, selection )
 		{
 		console.log( 'selected card id: ' + selection[ 0 ].data.id );
 		// load card in edit form
-		this.application.fireEvent( 'cardedit', selection[ 0 ] );
+		//this.application.fireEvent( 'cardedit', selection[ 0 ] );
 		},
 	onCardSaved: function( card )
 		{
 		// reload cards list
+		this.onLaunch();
 		},
 	});
 

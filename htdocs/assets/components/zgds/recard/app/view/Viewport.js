@@ -23,7 +23,7 @@ Ext.define( 'RCard.view.Viewport', {
 			//xtype: 'panel',
 			collapsible:true,
 			flex: 1,
-			title: 'List card',
+			title: 'Список катрочек',
 			},
 			{
 			//xtype: 'panel',
@@ -31,7 +31,7 @@ Ext.define( 'RCard.view.Viewport', {
 			collapsible:true,
 			flex: 2,
 			//height: 400,
-			title: 'Edit card'
+			title: 'Карточка'
 			}
 			]
 		}

@@ -11,8 +11,8 @@ Ext.Loader.setConfig({
 Ext.application({
 	name: 'RCard',
 	autoCreateViewport: true,
-	models:      [ 'Card',     ],
-	stores:      [ 'Cards',    ],
+	//models:      [ 'Card',     ],
+	//stores:      [ 'Cards',    ],
 	controllers: [ 'CardsList', 'CardEdit', ],
 	launch: function()
 		{

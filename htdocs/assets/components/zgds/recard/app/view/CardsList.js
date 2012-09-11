@@ -17,7 +17,7 @@ Ext.define( 'RCard.view.CardsList', {
 		{ text: 'Фамилия',  dataIndex: 'fname',  flex:     1    },
 		{ text: 'Имя',      dataIndex: 'lname',  flex:     1    },
 		{ text: 'Отчество', dataIndex: 'pname',  flex:     1    },
-		{ text: 'Дата',     dataIndex: 'dor', renderer : Ext.util.Format.dateRenderer('Y-m-d'), },
+		{ text: 'Дата',     dataIndex: 'dor', renderer : Ext.util.Format.dateRenderer('d-m-Y'), },
 		]
 	});
 
