@@ -39,6 +39,16 @@ class GeneralX
 	protected $_version = 'v.1.0';
 	/**
 	 * @access protected
+	 * @var array       package lexicon
+	 */
+	protected $_lexicon = ':default';
+	/**
+	 * @access protected
+	 * @var array       package namespace
+	 */
+	protected $_namespace = 'GX-v.1.0';
+	/**
+	 * @access protected
 	 * @var array       A collection of preprocessed chunk values.
 	 */
 	protected $_chunk = array();
@@ -113,13 +123,12 @@ class GeneralX
 
 		define( 'gxMODX_PATH_CORE', $this->modx->getOption( 'core_path', null, MODX_CORE_PATH ) );
 
-		$_ns = $this->modx->getObject( 'modNamespace', $this->_package );
 
-		$this->_version  = ( empty( $config[ 'version' ] ) ?
-				( empty( $this->_version ) ? basename( $_ns->get( 'path' ) ): $this->_version )
-				:
-				$config[ 'version' ]
-				);
+		$this->_version  = ( empty( $config[ 'version' ] ) ? $this->_version: $config[ 'version' ] );
+
+		$this->_namespace = ( empty( $config[ 'namespace' ] ) ? $this->_namespace: $config[ 'namespace' ] );
+
+		$_ns = $this->modx->getObject( 'modNamespace', $this->_namespace );
 
 		define( 'gxPATH_CORE',
 				$this->modx->getOption(
@@ -132,11 +141,11 @@ class GeneralX
 					)
 			);
 
-		$this->_version  = ( empty( $config[ 'version' ] ) ?
-				$this->_version
-				:
-				$config[ 'version' ]
-				);
+		//$this->_version  = ( empty( $config[ 'version' ] ) ?
+				//$this->_version
+				//:
+				//$config[ 'version' ]
+				//);
 
 		define( 'gxPATH_ASSETS',
 				$this->modx->getOption(
@@ -165,6 +174,7 @@ class GeneralX
 		define( 'gxPATH_CSS',        gxPATH_ASSETS   . 'css/' );
 		define( 'gxPATH_JS',         gxPATH_ASSETS   . 'js/' );
 		// GeneralX assets url
+		//define( 'gxURL_CONNECTOR',   gxURL_ASSETS    . 'connector/' );
 		define( 'gxURL_CONNECTOR',   gxURL_ASSETS    . 'connector/' );
 		define( 'gxURL_CSS',         gxURL_ASSETS    . 'css/' );
 		define( 'gxURL_JS',          gxURL_ASSETS    . 'js/' );

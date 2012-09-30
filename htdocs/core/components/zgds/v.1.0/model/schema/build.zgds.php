@@ -8,6 +8,7 @@ $schema_dir = dirname( __FILE__ );
 $model_dir  = dirname( $schema_dir );
 $core_dir   = dirname( dirname( dirname( dirname( $model_dir ) ) ) );
 
+define( '_HTDOCS', $core_dir );
 require_once( $core_dir   . '/config/config.inc.php' );
 include_once( $core_dir   . '/xpdo/xpdo.class.php' );
 require_once( $schema_dir . '/build.config.php' );

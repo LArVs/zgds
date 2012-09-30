@@ -4,7 +4,7 @@
  *
  * Include snippet
  *
- * @copyright Copyright (C) 2010, by LArV <larv.develop@gmail.com>
+ * @copyright Copyright (C) 2010-2013
  * @author    LArV <larv.develop@gmail.com>
  *
  * @package IncludeX

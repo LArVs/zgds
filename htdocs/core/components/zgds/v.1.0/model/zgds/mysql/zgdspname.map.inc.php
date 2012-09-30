@@ -3,17 +3,18 @@
  * @package zgds
  * @subpackage mysql
  */
-$xpdo_meta_map['zgdsLName']= array (
+$xpdo_meta_map['zgdsPName']= array (
   'package' => 'zgds',
   'version' => '1.1',
-  'table' => 'zgds_lname',
+  'table' => 'zgds_pname',
+  'extends' => 'xPDOSimpleObject',
   'fields' => 
   array (
-    'lname' => '',
+    'pname' => '',
   ),
   'fieldMeta' => 
   array (
-    'lname' => 
+    'pname' => 
     array (
       'dbtype' => 'varchar',
       'precision' => '50',
@@ -25,16 +26,16 @@ $xpdo_meta_map['zgdsLName']= array (
   ),
   'indexes' => 
   array (
-    'lname' => 
+    'pname' => 
     array (
-      'alias' => 'lname',
+      'alias' => 'pname',
       'primary' => false,
       'unique' => true,
       'fulltext' => true,
       'type' => 'BTREE',
       'columns' => 
       array (
-        'lname' => 
+        'pname' => 
         array (
           'length' => '',
           'collation' => 'A',
@@ -49,7 +50,7 @@ $xpdo_meta_map['zgdsLName']= array (
     array (
       'class' => 'zgdsRegistrationCard',
       'local' => 'id',
-      'foreign' => 'lname_id',
+      'foreign' => 'pname_id',
       'cardinality' => 'many',
       'owner' => 'local',
     ),

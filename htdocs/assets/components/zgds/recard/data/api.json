@@ -1,0 +1,31 @@
+<?php
+/**
+ * gxAPI
+ *
+ * @copyright Copyright (C) 2010-2013
+ * @author    LArV <larv.develop@gmail.com>
+ *
+ * @package    gxAPI
+ * @subpackage json
+ *
+ * vim: ft=php :
+ */
+
+header('Content-type: application/json; charset=UTF-8');
+
+// load connector router
+define( '_HTDOCS', $_SERVER[ 'DOCUMENT_ROOT' ] );
+$gxCorePath = _HTDOCS . DIRECTORY_SEPARATOR;
+$gxConnectorVersion = 'v.1.0';
+$gxConnectorPath = "core/components/zgds/$gxConnectorVersion/connector/index.php";
+$gxConnector = $gxCorePath . $gxConnectorPath;
+require_once( $gxConnector );
+
+// handle request
+$GX->modx->request->handleRequest( array(
+	'processors_path' => $GX->config[ 'path' ][ 'processor' ],
+	'location'        => '',
+	//,'location'        => 'card'
+	//,'action'          => 'read'
+));
+

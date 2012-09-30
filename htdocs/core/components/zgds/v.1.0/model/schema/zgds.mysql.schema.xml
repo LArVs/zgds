@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model package="zgds" baseClass="xPDOObject" platform="mysql" defaultEngine="MyISAM" phpdoc-package="zgds" phpdoc-subpackage="" version="1.1">
+	<!--
+	 !
+	 ! Модель данных
+	 ! =============
+	 !
+	 ! Регистрационная карточка
+	 ! ========================
+	 ! * ====== (1) Регистрация
+	 ! * эпидемиологический номер
+	 ! * === Информация о больном
+	 ! * ФИО (больного)
+	 ! * пол: мужской | женский
+	 ! * дата рождения | возраст
+	 ! * адрес (город, район, улица, дом, д. дом, квартира, телефон, дополнительная информация)
+	 ! * социальное положение (место работы | место учебы | не организован | детское учреждение | пенсионер | одинокий)
+	 ! * === Информация о диагнозе
+	 ! * диагноз (список)
+	 ! * тип диагноза в сводке (новорожденный | осложнение | инфекция)
+	 ! * дата заболеваемости
+	 ! * дата обращения больного
+	 ! * диагноз установлен (заявитель):
+	 ! * 	лечебное учреждение (скорая помощь, поликлиника, больница, диспансер...);
+	 ! * 	должность (врач, медсестра);
+	 ! * 	ФИО
+	 ! * диагноз направления (нет, лечился дома, тот же + список)
+	 ! * =
+	 ! * контакты (id = регистрационная карточка)
+	 ! * спецконтингент
+	 ! * === Регистрация
+	 ! * дата
+	 ! * ФИО (принял по телефону)
+	 ! * ФИО (ввел в компьютер)
+	 ! * === Оповещение в СЕС
+	 ! * дата, время
+	 ! * сообщено в СЕС (список)
+	 ! * =
+	 ! * ====== (2) госпитализация в ЛПУ
+	 ! * =
+	 ! * === Информация о транспортировке
+	 ! * доставлен (учреждение, самостоятельно)
+	 ! * дата, время госпитализации
+	 ! * =
+	 ! * принадлежит к ЛПУ
+	 ! * 	ЛПУ (список);
+	 ! * 	отделение(список);
+	 ! * госпитализирован в ЛПУ (не госпитализирован, отказ в госпитализации, самовольный уход, список):
+	 ! * 	ЛПУ (список);
+	 ! * 	отделение(список);
+	 ! * =
+	 ! * диагноз (приемный):
+	 ! * 	дата
+	 ! * 	должность (врач), ФИО
+	 ! * диагноз (окончательный):
+	 ! * 	дата
+	 ! * 	должность (врач), ФИО
+	 ! * =
+	 ! * дата (флажок: выписки | смерти)
+?	 ! * === Оповещение в СЕС или ГДС
+	 ! * дата, время
+	 ! * сообщено в СЕС (список)
+	 ! * === Результаты бактериологических исследований
+	 ! * дата посева
+	 ! * дата ответа посева
+	 ! * = текст
+	 !
+	 !-->
+
+	<!-- registration card  -->
+	<object class="zgdsRegistrationCard" table="zgds_rcard" extends="xPDOSimpleObject">
+
+		<!-- ****** (1) Регистрация -->
+		<!-- epidemiologic number / эпидемиологический номер -->
+		<field key="eid" dbtype="integer" precision="10"  phptype="string" null="false" default="" />
+			<index alias="eid" name="eid" primary="false" unique="false" type="BTREE">
+				<column key="eid" length="" collation="A" null="false" />
+			</index>
+		<!-- first, last, patronymic name / ФИО больного -->
+		<field key="fname_id"    dbtype="integer" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="lname_id"    dbtype="integer" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="pname_id"    dbtype="integer" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
+
+		<!-- date of birth / дата рождения | возраст -->
+		<field key="date_of_birth" dbtype="date" phptype="date" null="false" default="0000-00-00" />
+		<field key="age"           dbtype="tinyint" precision="3" attributes="unsigned" phptype="integer" null="false" default="0" />
+
+		<!-- address / адрес (область, город, район, улица, дом, д. дом, квартира, телефон (2xfull format), дополнительная информация) -->
+		<field key="region_id"       dbtype="integer"   precision="10"  attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="city_id"         dbtype="integer"   precision="10"  attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="district_id"     dbtype="integer"   precision="10"  attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="street_id"       dbtype="integer"   precision="10"  attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="house_number"    dbtype="smallint"  precision="5"   attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="house_number_a"  dbtype="varchar"   precision="10"  phptype="string" null="false" default="" />
+		<field key="flat_number"     dbtype="smallint"  precision="5"   attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="telephone"       dbtype="varchar"   precision="40"  phptype="string" null="false" default="" />
+		<field key="address_info"    dbtype="varchar"   precision="255" phptype="string" null="false" default="" />
+
+		<!-- status / социальное положение -->
+		<field key="status"          dbtype="tinyint"   precision="1"   attributes="unsigned" phptype="integer" null="false" default="0" />
+		<!-- status = список
+			- декретный отпуск;
+			- новорожденный;
+
+			- не организован;
+			- временно не организован;
+			- детское заведение;
+
+			- среднее учебное заведение (школа, гимназия, лицей);
+			- среднее специальное/профессиональное учебное заведение (техникум, колледж);
+			- высшее учебное заведение;
+
+			- место работы;
+			- не работает;
+
+			- военнослужащий;
+
+			- задержанный (СИЗО));
+			- осужденный (тюрьма, колония);
+
+			- одинокий;
+			- пенсионер;
+			- инвалид;
+			- другое.
+			-->
+		<field key="organization_id" dbtype="integer"   precision="10"  attributes="unsigned" phptype="integer" null="false" default="0" />
+		<!-- organization_id = table
+			- роддом;
+			- детский сад;
+			- средняя школа;
+			- школа-интернат;
+			- колледж;
+			- лицей;
+			- гимназия;
+			- техникум;
+			- институт;
+			- университет;
+			- не организован;
+			- другое.
+			-->
+		<field key="status_info"     dbtype="varchar"   precision="255" phptype="string" null="false" default="" />
+
+		<!-- diagnosis / Информация о диагнозе -->
+		<field key="diagnosis_id"    dbtype="integer"   precision="10"  attributes="unsigned" phptype="integer" null="false" default="0" />
+		<!-- type / тип диагноза -->
+		<field key="diagnosis_type"  dbtype="tinyint"   precision="1"   attributes="unsigned" phptype="integer" null="false" default="0" />
+		<!-- diagnosis type = список
+			- инфекция;
+			- осложнение;
+			- новорожденный.
+			-->
+		<!-- дата заболеваемости -->
+		<field key="date_of_disease" dbtype="date" phptype="date" null="false" default="0000-00-00" />
+		<!-- дата обращения больного -->
+		<field key="date_of_reference_patient" dbtype="date" phptype="date" null="false" default="0000-00-00" />
+
+		<!-- установил (диагноз) -->
+		<!-- лечебное учреждение (скорая помощь, поликлиника, больница, диспансер...) -->
+		<field key="established_lpu_id" dbtype="integer"   precision="10"  attributes="unsigned" phptype="integer" null="false" default="0" />
+		<!-- должность (врач, медсестра), ФИО -->
+		<field key="established_person" dbtype="varchar"   precision="255" phptype="string" null="false" default="" />
+
+		<!-- заявитель (диагноза) -->
+		<!-- лечебное учреждение (скорая помощь, поликлиника, больница, диспансер...) -->
+		<field key="declarant_lpu_id" dbtype="integer"   precision="10"  attributes="unsigned" phptype="integer" null="false" default="0" />
+		<!-- должность (врач, медсестра), ФИО -->
+		<field key="declarant_person" dbtype="varchar"   precision="255" phptype="string" null="false" default="" />
+
+		<!-- диагноз направления список (? -> нет, лечился дома, тот же ) -->
+		<field key="direction_diagnosis_id" dbtype="integer"   precision="10"  attributes="unsigned" phptype="integer" null="false" default="0" />
+
+		<!-- контакты (id - регистрационная карточка) -->
+		<field key="contact_eid" dbtype="integer" precision="10"  phptype="string" null="false" default="" />
+		<!-- спецконтингент -->
+		<field key="special_contingent" dbtype="varchar"   precision="255" phptype="string" null="false" default="" />
+
+		<!-- Регистрация -->
+		<!-- время регистрации -->
+		<field key="datetime_of_registration" dbtype="datetime" phptype="datetime" null="false" default="0000-00-00 00:00:00" />
+		<!-- ФИО (принял по телефону) -->
+		<field key="registration_person_by_tel" dbtype="varchar"   precision="255" phptype="string" null="false" default="" />
+		<!-- ФИО (ввел в базу данных) -->
+		<field key="registration_person_by_db" dbtype="varchar"   precision="255" phptype="string" null="false" default="" />
+
+		<!-- Оповещение в СЕС -->
+		<!-- сообщено в СЕС (список с флажками) -->
+		<!-- стадия: 1 -->
+		<!-- <composite alias="notification_ses" class="zgdsNotificationSES" local="eid" foreign="eid" cardinality="many" owner="foreign" /> -->
+		<!-- время оповещение (время автоматически устанавливается в class zgdsNotificationSES) -->
+		<!-- стадия = 1 -->
+		<!-- <field key="datetime_of_notification" dbtype="datetime" phptype="datetime" null="false" default="0000-00-00 00:00:00" /> -->
+
+		<!-- ****** (2) госпитализация в ЛПУ -->
+		<!-- доставлен (самостоятельно, учреждение) -->
+		<field key="hospitalization_by_lpu_id" dbtype="integer"   precision="10"  attributes="unsigned" phptype="integer" null="false" default="0" />
+		<!-- время госпитализации -->
+		<field key="datetime_of_hospitalization" dbtype="datetime" phptype="datetime" null="false" default="0000-00-00 00:00:00" />
+
+		<!-- принадлежит к ЛПУ (список) -->
+		<!-- ЛПУ (список) -->
+		<field key="belongs_to_lpu_id" dbtype="integer"   precision="10"  attributes="unsigned" phptype="integer" null="false" default="0" />
+		<!-- отделение(список) -->
+		<field key="department_of_lpu_id" dbtype="integer"   precision="10"  attributes="unsigned" phptype="integer" null="false" default="0" />
+
+		<!-- госпитализирован в ЛПУ (не госпитализирован, отказ в госпитализации, самовольный уход, список) -->
+		<!-- ЛПУ (список) -->
+		<field key="hospitalization_to_lpu_id" dbtype="integer"   precision="10"  attributes="unsigned" phptype="integer" null="false" default="0" />
+		<!-- отделение(список) -->
+		<field key="hospitalization_department_of_lpu_id" dbtype="integer"   precision="10"  attributes="unsigned" phptype="integer" null="false" default="0" />
+
+		<!-- диагноз (приемный) -->
+		<field key="diagnosis_1st_id"    dbtype="integer"   precision="10"  attributes="unsigned" phptype="integer" null="false" default="0" />
+		<!-- должность (врач, медсестра), ФИО -->
+		<field key="diagnosis_1st_person" dbtype="varchar"   precision="255" phptype="string" null="false" default="" />
+		<!-- дата диагноз (приемный) -->
+		<field key="diagnosis_1st_date" dbtype="date" phptype="date" null="false" default="0000-00-00" />
+
+		<!-- диагноз (окончательный) -->
+		<field key="diagnosis_2st_id"    dbtype="integer"   precision="10"  attributes="unsigned" phptype="integer" null="false" default="0" />
+		<!-- должность (врач, медсестра), ФИО -->
+		<field key="diagnosis_2st_person" dbtype="varchar"   precision="255" phptype="string" null="false" default="" />
+		<!-- дата диагноз (окончательный) -->
+		<field key="diagnosis_2st_date" dbtype="date" phptype="date" null="false" default="0000-00-00" />
+
+		<!-- дата (флажок: выписки | смерти) -->
+		<!-- флажок: выписки | смерти -->
+		<field key="discharge_type"  dbtype="tinyint"   precision="1"   attributes="unsigned" phptype="boolean" null="false" default="0" />
+		<!-- discharge type = список
+				- выписки;
+				- смерти.
+			  -->
+		<!-- дата: выписки | смерти -->
+		<field key="date_of_discharge" dbtype="date" phptype="date" null="false" default="0000-00-00" />
+
+		<!-- Результаты бактериологических исследований -->
+		<!-- дата посева (дата первого бактериологического исследования на основании которого был поставлен диагноз)-->
+		<field key="date_of_bacteriological_analysis_start" dbtype="date" phptype="date" null="false" default="0000-00-00" />
+		<!-- дата ответа посева -->
+		<field key="date_of_bacteriological_analysis_finish" dbtype="date" phptype="date" null="false" default="0000-00-00" />
+		<!-- бактериологические исследования -->
+		<field key="bacteriological_analysis" dbtype="text" phptype="string" null="false" default="" />
+
+		<!-- Оповещение в СЕС | ЗГДС -->
+		<!-- сообщено в СЕС (список с флажками) -->
+		<!-- стадия: 2 -->
+		<!-- <composite alias="notification_ses" class="zgdsNotificationSES" local="eid" foreign="eid" cardinality="many" owner="foreign" /> -->
+		<!-- время оповещение (время автоматически устанавливается в class zgdsNotificationSES) -->
+		<!-- стадия = 2 -->
+		<!-- <field key="datetime_of_notification" dbtype="datetime" phptype="datetime" null="false" default="0000-00-00 00:00:00" /> -->
+
+		<!-- aggregate -->
+		<aggregate alias="FName"  class="zgdsFName"  local="fname_id"  foreign="id" cardinality="one" owner="foreign" />
+		<aggregate alias="LName"  class="zgdsLName"  local="lname_id"  foreign="id" cardinality="one" owner="foreign" />
+		<aggregate alias="PName"  class="zgdsPName"  local="pname_id"  foreign="id" cardinality="one" owner="foreign" />
+
+		<composite alias="notification_ses" class="zgdsNotificationSES" local="eid" foreign="eid" cardinality="many" owner="foreign" />
+	</object>
+
+	<!-- First name -->
+	<object class="zgdsFName" table="zgds_fname" extends="xPDOSimpleObject">
+		<field key="fname" dbtype="varchar" precision="50" phptype="string" null="false" default="" />
+			<index alias="fname" name="fname" primary="false" unique="true" fulltext="true" type="BTREE">
+				<column key="fname" length="" collation="A" null="false" />
+			</index>
+
+		<composite alias="RegistrationCard" class="zgdsRegistrationCard" local="id" foreign="fname_id" cardinality="many" owner="local" />
+	</object>
+	<!-- Last name -->
+	<object class="zgdsLName" table="zgds_lname" extends="xPDOSimpleObject">
+		<field key="lname" dbtype="varchar" precision="50" phptype="string" null="false" default="" index="unique" />
+			<index alias="lname" name="lname" primary="false" unique="true" fulltext="true" type="BTREE">
+				<column key="lname" length="" collation="A" null="false" />
+			</index>
+
+		<composite alias="RegistrationCard" class="zgdsRegistrationCard" local="id" foreign="lname_id" cardinality="many" owner="local" />
+	</object>
+	<!-- Patronymic name -->
+	<object class="zgdsPName" table="zgds_pname" extends="xPDOSimpleObject">
+		<field key="pname" dbtype="varchar" precision="50" phptype="string" null="false" default="" index="unique" />
+			<index alias="pname" name="pname" primary="false" unique="true" fulltext="true" type="BTREE">
+				<column key="pname" length="" collation="A" null="false" />
+			</index>
+
+		<composite alias="RegistrationCard" class="zgdsRegistrationCard" local="id" foreign="pname_id" cardinality="many" owner="local" />
+	</object>
+
+</model>

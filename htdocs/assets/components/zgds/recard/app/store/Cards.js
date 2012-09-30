@@ -12,10 +12,10 @@ Ext.define( 'RCard.store.Cards', {
 		type: 'ajax',
 		api:
 			{
-			read:    'data/cards.json?read',
-			create:  'data/cards.json?create',
-			update:  'data/cards.json?update',
-			destroy: 'data/cards.json?destroy',
+			read:    'data/api.json?action=card/read',
+			create:  'data/api.json?action=card/create',
+			update:  'data/api.json?action=card/update',
+			destroy: 'data/api.json?action=card/destroy',
 			},
 		//url: 'data/cards.json',
 		reader:

@@ -16,7 +16,7 @@ Ext.define( 'RCard.view.EditCard', {
 		[{
 		xtype: 'fieldset',
 		title: 'Карточка',
-		disabled: true,
+		//disabled: true,
 		defaults:
 			{
 			xtype: 'textfield',
@@ -77,12 +77,12 @@ Ext.define( 'RCard.view.EditCard', {
 			{
 			text: 'Сохранить',
 			id: 'editCardSave',
-			disabled: true,
+			//disabled: true,
 			},
 			{
 			text: 'Отмена',
 			id: 'editCardCancel',
-			disabled: true,
+			//disabled: true,
 			},
 			{ xtype: 'tbfill' },
 			{
