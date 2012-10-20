@@ -13,6 +13,7 @@ Ext.define( 'RCard.controller.CardEdit',
 	init: function()
 		{
 		this.control({
+			'#addCard':        { click: this.onCardAdd, },
 			'#editCardEdit':   { click: this.onCardEdit, },
 			'#editCardSave':   { click: this.onCardSave, },
 			'#editCardCancel': { click: this.onCardCancel, },
@@ -27,6 +28,14 @@ Ext.define( 'RCard.controller.CardEdit',
 			cardsave: this.onCardSave,
 			scope: this,
 			});
+		},
+	onCardAdd: function( model, record, index, object )
+		{
+		console.log(
+			'add card: new'
+			);
+		var cardEdit = this.getCardEdit();
+		cardEdit.loadRecord( record );
 		},
 	onCardRead: function( model, record, index, object )
 		{

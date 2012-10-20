@@ -1,6 +1,6 @@
-Ext.define( 'RCard.store.Cards', {
+Ext.define( 'RCard.store.Card', {
 	extend:   'Ext.data.Store',
-	model:    'RCard.model.Cards',
+	model:    'RCard.model.Card',
 	//autoLoad: true,
 
 	//buffered: true,
@@ -12,10 +12,10 @@ Ext.define( 'RCard.store.Cards', {
 		type: 'ajax',
 		api:
 			{
-			read:    'data/api.json?action=cards/read',
-			//create:  'data/api.json?action=card/create',
-			//update:  'data/api.json?action=card/update',
-			//destroy: 'data/api.json?action=card/destroy',
+			read:    'data/api.json?action=card/read',
+			create:  'data/api.json?action=card/create',
+			update:  'data/api.json?action=card/update',
+			destroy: 'data/api.json?action=card/destroy',
 			},
 		//url: 'data/cards.json',
 		reader:
@@ -26,7 +26,7 @@ Ext.define( 'RCard.store.Cards', {
 		writer:
 			{
 			type: 'json',
-			root: 'results',
+			root: 'results.data',
 			writeAllFields: false,
 			},
 		listeners: {

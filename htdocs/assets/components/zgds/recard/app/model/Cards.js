@@ -51,12 +51,12 @@
 "bacteriological_analysis":""}
 */
 
-Ext.define( 'RCard.model.Card', {
+Ext.define( 'RCard.model.Cards', {
 	extend: 'Ext.data.Model',
 	fields: [
 		{ name: 'id',                       type: 'int'    },
 		{ name: 'eid',                      type: 'int'    },
-		{ name: 'fname',                    type: 'int'    },
+		{ name: 'fname',                    type: 'string' },
 		{ name: 'lname',                    type: 'string' },
 		{ name: 'datetime_of_registration', type: 'date'   },
 	],

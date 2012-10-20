@@ -1,8 +1,8 @@
 Ext.define( 'RCard.controller.CardsList',
 	{
 	extend: 'Ext.app.Controller',
-	models: [ 'Card',     ],
-	stores: [ 'Cards'     ],
+	models: [ 'Card', 'Fname' ],
+	stores: [ 'Cards', 'Fnames' ],
 	views:  [ 'CardsList', 'EditCard' ],
 	refs: [
 		{

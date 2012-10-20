@@ -12,62 +12,81 @@ Ext.define( 'RCard.view.EditCard', {
 		msgTarget: 'side'
 		},
 
-	items:
-		[{
-		xtype: 'fieldset',
-		title: 'Карточка',
+	items: [{
+		xtype: 'tabpanel',
+		closable: false,
 		//disabled: true,
-		defaults:
-			{
+		defaults: {
 			xtype: 'textfield',
 			width: 300,
-			},
-		items:
-			[
-				{
-				fieldLabel: 'ID',
-				name: 'id',
-				xtype: 'numberfield',
-				hideTrigger: true,
-				//disabled: true,
-				},
+		},
+		items: [
+			{
+			title: 'Первичные данные',
+			items: [
 				{
 				fieldLabel: 'Номер',
-				name: 'number',
+				name: 'id',
 				xtype: 'numberfield',
+				editable: false,
 				hideTrigger: true,
 				//disabled: true,
 				},
 				{
-				allowBlank: false,
+				fieldLabel: 'эпид-номер',
+				name: 'eid',
+				xtype: 'numberfield',
+				editable: false,
+				hideTrigger: true,
+				//disabled: true,
+				},
+				{
+				//allowBlank: false,
 				fieldLabel: 'Фамилия',
 				emptyText: 'Фамилия',
 				name: 'fname'
 				},
 				{
-				allowBlank: false,
+				//allowBlank: false,
 				fieldLabel: 'Имя',
 				emptyText: 'Имя',
 				name: 'lname'
 				},
 				{
-				fieldLabel: 'Отчество',
-				name: 'pname'
+				xtype: 'datefield',
+				format: 'd-m-Y',
+				fieldLabel: 'Дата рождения',
+				name: 'datetime_of_registration',
+				//allowBlank: false,
+				//maxValue: new Date()
+				},
+			],
+			},
+			{
+			title: 'Госпитализация',
+			items: [
+				{
+				//allowBlank: false,
+				fieldLabel: 'Фамилия',
+				emptyText: 'Фамилия',
+				name: 'fname'
 				},
 				{
 				xtype: 'datefield',
 				format: 'd-m-Y',
 				fieldLabel: 'Дата рождения',
-				name: 'dor',
+				name: 'date_of_reference_patient',
 				//allowBlank: false,
 				//maxValue: new Date()
 				},
 			],
-		}],
+			},
+		],
+	}],
 
 	dockedItems: [{
 		xtype: 'toolbar',
-		dock: 'top',
+		dock: 'bottom',
 		ui: 'footer',
 		items: [
 			{
@@ -87,10 +106,11 @@ Ext.define( 'RCard.view.EditCard', {
 			{ xtype: 'tbfill' },
 			{
 			text: 'Новая карточка',
+			id: 'addCard',
 			},
-			]
-		}],
+		]
+	}],
 
-	});
+});
 
 

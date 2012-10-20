@@ -1,27 +1,21 @@
-Ext.define( 'RCard.store.Cards', {
+Ext.define( 'RCard.store.Fnames', {
 	extend:   'Ext.data.Store',
-	model:    'RCard.model.Cards',
-	//autoLoad: true,
-
-	//buffered: true,
-	//leadingBufferZone: 300,
-	//pageSize: 100,
-
+	model:    'RCard.model.Fname',
 	proxy:
 		{
 		type: 'ajax',
 		api:
 			{
-			read:    'data/api.json?action=cards/read',
-			//create:  'data/api.json?action=card/create',
-			//update:  'data/api.json?action=card/update',
-			//destroy: 'data/api.json?action=card/destroy',
+			read:    'data/api.json?action=fname/read',
+			create:  'data/api.json?action=fname/create',
+			update:  'data/api.json?action=fname/update',
+			destroy: 'data/api.json?action=fname/destroy',
 			},
 		//url: 'data/cards.json',
 		reader:
 			{
 			type: 'json',
-			root: 'results.data',
+			root: 'results',
 			},
 		writer:
 			{
