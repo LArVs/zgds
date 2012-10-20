@@ -24,7 +24,6 @@ $start = (int)$GX->modx->getOption( 'start', $scriptProperties, 0 );
 $total = (int)$GX->modx->getCount( $object_name );
 // guery using paging
 $fileds = $GX->modx->getFields( $object_name );
-
 $query = $GX->modx->newQuery( $object_name );
 $query->limit( $limit, $start );
 $query->sortby( 'datetime_of_registration', 'DESC' );

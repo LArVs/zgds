@@ -3,7 +3,8 @@ Ext.define( 'RCard.model.Card', {
 	fields:
 		[
 		{ name: 'id',     type: 'int'    },
-		{ name: 'number', type: 'int'    },
+		{ name: 'eid',     type: 'int'    },
+		{ name: 'fname_id', type: 'int'    },
 		{ name: 'fname',  type: 'string' },
 		{ name: 'lname',  type: 'string' },
 		{ name: 'pname',  type: 'string' },

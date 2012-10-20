@@ -19,6 +19,7 @@ $gxCorePath = _HTDOCS . DIRECTORY_SEPARATOR;
 $gxConnectorVersion = 'v.1.0';
 $gxConnectorPath = "core/components/zgds/$gxConnectorVersion/connector/index.php";
 $gxConnector = $gxCorePath . $gxConnectorPath;
+
 require_once( $gxConnector );
 
 // handle request
