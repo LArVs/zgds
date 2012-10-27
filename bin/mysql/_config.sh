@@ -13,6 +13,13 @@ _MSG_HR1="=================================================="
 _MSG_HR2="=========="
 _MSG_HR3="====="
 
+SetFileByLastDate()
+	{
+	_FILE_BY_LAST_DATE=$(  ls -t ${_BACKUP_DIR}/ | head -n1 )
+	echo "Found last file by date: '${_FILE_BY_LAST_DATE}'"
+	_BACKUP_FILE_ARC="${_BACKUP_DIR}/$_FILE_BY_LAST_DATE"
+	}
+
 SetDirectoryByFile()
 	{
 	_SUB_NAME=${1:-$_CURRENT_DATE}
@@ -88,7 +95,9 @@ SetCompressor()
 		_COMPRESSOR_BIN="cat"
 		_DECOMPRESSOR_BIN="cat"
 	else
-		_BACKUP_FILE_ARC="$_BACKUP_FILE.$_BACKUP_FILE_SUFF"
+		if [[ -z $_BACKUP_FILE_ARC ]]; then
+			_BACKUP_FILE_ARC="$_BACKUP_FILE.$_BACKUP_FILE_SUFF"
+		fi
 		_COMPRESSOR_BIN="$_COMPRESSOR -c -9"
 		_DECOMPRESSOR_BIN="$_COMPRESSOR -dc"
 	fi
